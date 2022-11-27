@@ -11,22 +11,24 @@ function saveLocalStorage(clase) {
 }
 
 // Recibe el nuevo estudiante y el id de la clase y lo guarda en local storage creadno un id para el estudiante
-function saveNewStudentLocalStorage(newAlumno, idClase) {
+function saveNewStudentLocalStorage(newAlumnoSave, idClase) {
+    const nombreCompleto = `${newAlumnoSave.name} ${newAlumnoSave.apeido}`
     let id
     const clases = JSON.parse(localStorage.getItem("clases"))
     const index = clases.findIndex(clase => clase.id == idClase)
     const { alumnos } = clases[index]
-    console.log("alumnos",idClase, alumnos)
+    // console.log("alumnos",idClase, alumnos)
     if(alumnos.length>0) {
         id = alumnos[alumnos.length-1].id+1
-        console.log("el id",alumnos[alumnos.length-1].id)
+        // console.log("el id",alumnos[alumnos.length-1].id)
       } else {
         id = 1
       }
-    console.log(id)
-    newAlumno.id = id
+    // console.log(id)
+
+    const newAlumno= {name: nombreCompleto, id: id}
     // const index = clases.findIndex(clase => clase.id == idClase)
-    console.log("index", index)
+    // console.log("index", index)
     clases[index].alumnos.push(newAlumno)
     const dataInString = JSON.stringify(clases)
     localStorage.setItem("clases", dataInString)

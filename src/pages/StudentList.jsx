@@ -10,14 +10,13 @@ import { getLocalStorage, saveLocalStorage, saveNewStudentLocalStorage, deleteSt
 
 
 function StudentList() {
-  const [newStudent, setNewStudent] = useState({})
   const [clase, setClase] = useState({})
   const [error, setError] = useState(false)
   const [editionMode, setEditionMode] = useState(false)
 
   const params = useParams()
 
-  console.log("params", params)
+  // console.log("params", params)
   useEffect(() => {
     try {
       setClase(getLocalStorage()[params.id-1])
@@ -25,20 +24,12 @@ function StudentList() {
       setError(true)
       console.log("si hubo un error")
     }
-  }, [])
+  }, [editionMode])
   // name: "Temas Selecto de Física I",  grup: "4B", semester: "2", year: "2022", school: "Edith Stein", id: 7, alumnos
   // console.log("estos son la clase")
   const  {alumnos, name, semester, year, grup } = clase
   // console.log(alumnos, name, semester, year, grup)
 
-  const handleNewStudent = (newStudent) => {
-    const nombreCompleto = `${newStudent.name} ${newStudent.apeido}`
-    if(newStudent.name != '') {
-      console.log("agregado", nombreCompleto)
-    saveNewStudentLocalStorage({name: nombreCompleto}, params.id)
-    }
-    setNewStudent('')
-  }
   const handleClickEdith = () => {
     setEditionMode(!editionMode)
   }
@@ -51,7 +42,7 @@ function StudentList() {
     deleteStudent(classUpdate, params.id)
 }
   
-  console.log(alumnos)
+  // console.log(alumnos)
   return (
     !alumnos ? <h2>Error 404</h2> :
     <div className="flex flex-col p-5">
@@ -70,7 +61,7 @@ function StudentList() {
           </button>
           {editionMode && 
           <>
-            <ModalNewStudent handleNewStudent={handleNewStudent} setNewStudent={setNewStudent}/>
+            <ModalNewStudent params={params} setEditionMode={setEditionMode}/>
             {/* <button>
                 Guardar cambios
             </button> */}

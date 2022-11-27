@@ -1,14 +1,16 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
+import { saveNewStudentLocalStorage } from '../helpers/useLocalStorage'
 
-export default function ModalNewStudent({handleNewStudent}) {
+
+export default function ModalNewStudent({params, setEditionMode}) {
   let [isOpen, setIsOpen] = useState(false)
-  const [newStudentName, setNewStudentName] = useState('')
-  const [newStudentApeido, setNewStudentApeido] = useState('')
+  const [newStudent, setNewStudent] = useState({name: '', apeido: ''})
 
   function closeModal() {
     // console.log("hola")
     // handleNewStudent()
+    setEditionMode(false)
     setIsOpen(false)
   }
 
@@ -17,10 +19,28 @@ export default function ModalNewStudent({handleNewStudent}) {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    // setNewStudent()
-    // console.log("agregado",newStudentName,newStudentApeido )
-    handleNewStudent({name: newStudentName, apeido: newStudentApeido })
+    const nombreCompleto = `${newStudent.name} ${newStudent.apeido}`
+    // setNewStudent({nombre: newStudent.name, apeido: newStudent.apeido})
+    // console.log(newStudent)
+    if(newStudent.name) {
+      console.log("agregado", nombreCompleto)
+      saveNewStudentLocalStorage(newStudent, params.id)
+    }
+    // setNewStudent({})
+    console.log(newStudent)
+    // handleNewStudent()
     closeModal()
+  }
+
+  const handleNewStudent = () => {
+    console.log(newStudent)
+    const nombreCompleto = `${newStudent.name} ${newStudent.apeido}`
+    setNewStudent({nombre: newStudent.name, apeido: newStudent.apeido})
+    if(newStudent.name) {
+      console.log("agregado", nombreCompleto)
+      // saveNewStudentLocalStorage({name: nombreCompleto}, params.id)
+    }
+    // setNewStudent({})
   }
 
   return (
@@ -78,8 +98,8 @@ export default function ModalNewStudent({handleNewStudent}) {
                         <input type="text" id="nombre" 
                           placeholder='Nombre'
                           className='border border-black rounded-sm w-full px-2 py-1'
-                          value={newStudentName}
-                          onChange={e => setNewStudentName(e.target.value)}
+                          value={newStudent.name}
+                          onChange={e => setNewStudent({...newStudent, name: e.target.value})}
                         />
                       </div>
                       <div>
@@ -87,8 +107,8 @@ export default function ModalNewStudent({handleNewStudent}) {
                         <input type="text" id="apeidos" 
                           placeholder='Apeidos'
                           className=' border border-black rounded-sm w-full px-2 py-1'
-                          value={newStudentApeido}
-                          onChange={e => setNewStudentApeido(e.target.value)}
+                          value={newStudent.apeido}
+                          onChange={e => setNewStudent({...newStudent, apeido: e.target.value})}
                         />
                       </div>
                       <div className="mt-4">
