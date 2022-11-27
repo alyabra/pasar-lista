@@ -1,9 +1,13 @@
 import React from 'react'
 
 const ClassPreview = ({claseInfo}) => {
+  const handleClick = (id) => {
+    console.log(id)
+  }
   return (
     <div
     className='my-2 p-4 px-5 text-xl  font-bold  w-full bg-slate-100 flex flex-col md:flex-row md:justify-between rounded-xl border-2 border-gray-400 shadow-xl'
+    onClick={() => handleClick(claseInfo.id)}
 >
     <div className='flex items-center justify-center'>
        <p className='block text-center'>{claseInfo.name}</p> 

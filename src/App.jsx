@@ -11,6 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path='/pasa-lista' element={<StudentList />} />
+        <Route path='/pasa-lista/:id' element={<StudentList />} />
       </Routes>
     </BrowserRouter>
     // <div className="App">
