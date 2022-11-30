@@ -1,19 +1,25 @@
 import React, { useState } from 'react'
 import { getDate } from '../helpers/databases'
+import { saveAttendanceLocalStorage } from '../helpers/useLocalStorage'
 
-const StudentComponent = ({alumno, editionMode, handleDeleteStudent}) => {
-    const [studentAttendance, setStdentAttendance] = useState({})
+const StudentComponent = ({alumno, editionMode, handleDeleteStudent, idClase}) => {
+    // const [studentAttendance, setStdentAttendance] = useState({})
     const [statusAttendance, setStatusAttendance] = useState('')
-    const saveAttendance = (id, status) => {
+    
+    const saveAttendance = (idStudent, status) => {
         if(statusAttendance === '') {
             const day = getDate()
-            setStdentAttendance({id, status})
+            // setStdentAttendance({day, status})
+
+            const dataToSave = {day, status}
             setStatusAttendance(status)
-            console.log({id, status, day})
+            // console.log(studentAttendance)
+            saveAttendanceLocalStorage(idClase, idStudent, dataToSave)
         } else {
             setStatusAttendance('')
         }
     }
+
 
     // const handleDeleteStudent = id => {
     //     console.log('elimindo '+id)

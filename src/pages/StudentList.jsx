@@ -19,6 +19,7 @@ function StudentList() {
   // console.log("params", params)
   useEffect(() => {
     try {
+      // creo que esta mal se deberñia buscar el indice antes
       setClase(getLocalStorage()[params.id-1])
     } catch (error) {
       setError(true)
@@ -40,7 +41,10 @@ function StudentList() {
     setClase(classUpdate)
     // saveLocalStorage(classUpdate, params.id)
     deleteStudent(classUpdate, params.id)
-}
+  }
+  const saveRollCall = () => {
+    console.log("Guadar lista")
+  }
   
   // console.log(alumnos)
   return (
@@ -49,7 +53,7 @@ function StudentList() {
         <Header />
         <ClassInfo datos={{name, semester, grup, year}} />
         {alumnos?.map((alumno) => (
-          <StudentComponent alumno={alumno} key={alumno.id} editionMode={editionMode} handleDeleteStudent={handleDeleteStudent}/>
+          <StudentComponent alumno={alumno} key={alumno.id} editionMode={editionMode} handleDeleteStudent={handleDeleteStudent} idClase={params.id}/>
         ))}
         <div className="relative flex justify-center items-center gap-4">
           <button 
@@ -58,6 +62,12 @@ function StudentList() {
             onClick={handleClickEdith}
           >
             {!editionMode ? 'Editar lista' : 'Cancelar edición' }
+          </button>
+          <button
+          className="bg-green-300  w-1/4 h-10 rounded-md shadow-md"
+          onClick={saveRollCall}
+          >
+            Guardar pase de lista
           </button>
           {editionMode && 
           <>
