@@ -17,17 +17,28 @@ function StudentList() {
   const params = useParams()
 
   // console.log("params", params)
+  // useEffect(() => {
+  //   try {
+  //     // creo que esta mal se deberñia buscar el indice antes
+  //     setClase(getLocalStorage()[params.id-1])
+  //   } catch (error) {
+  //     setError(true)
+  //     console.log("si hubo un error")
+  //   }
+  // }, [])
+
   useEffect(() => {
     try {
-      // creo que esta mal se deberñia buscar el indice antes
-      setClase(getLocalStorage()[params.id-1])
+      const classes = getLocalStorage()
+      const indexClass = classes.findIndex(clases => clases.id == params.id)
+      setClase(getLocalStorage()[indexClass])
     } catch (error) {
       setError(true)
       console.log("si hubo un error")
     }
-  }, [editionMode])
+  }, [])
   // name: "Temas Selecto de Física I",  grup: "4B", semester: "2", year: "2022", school: "Edith Stein", id: 7, alumnos
-  // console.log("estos son la clase")
+  // console.log("estos son la clase", clase)
   const  {alumnos, name, semester, year, grup } = clase
   // console.log(alumnos, name, semester, year, grup)
 
@@ -41,6 +52,15 @@ function StudentList() {
     setClase(classUpdate)
     // saveLocalStorage(classUpdate, params.id)
     deleteStudent(classUpdate, params.id)
+  }
+  const handleNewStudent = (newStudent, idClass) => {
+
+    const classes = getLocalStorage()
+    const indexClass = classes.findIndex(clases => clases.id == params.id)
+    
+    saveNewStudentLocalStorage(newStudent, idClass)
+    setClase(getLocalStorage()[indexClass])
+    
   }
   const saveRollCall = () => {
     console.log("Guadar lista")
@@ -71,7 +91,7 @@ function StudentList() {
           </button>
           {editionMode && 
           <>
-            <ModalNewStudent params={params} setEditionMode={setEditionMode}/>
+            <ModalNewStudent params={params} setEditionMode={setEditionMode} handleNewStudent={handleNewStudent}/>
             {/* <button>
                 Guardar cambios
             </button> */}

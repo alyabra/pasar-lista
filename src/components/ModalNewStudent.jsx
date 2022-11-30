@@ -3,14 +3,14 @@ import { Fragment, useState } from 'react'
 import { saveNewStudentLocalStorage } from '../helpers/useLocalStorage'
 
 
-export default function ModalNewStudent({params, setEditionMode}) {
+export default function ModalNewStudent({params, setEditionMode, handleNewStudent}) {
   let [isOpen, setIsOpen] = useState(false)
   const [newStudent, setNewStudent] = useState({name: '', apeido: ''})
 
   function closeModal() {
     // console.log("hola")
     // handleNewStudent()
-    setEditionMode(false)
+    // setEditionMode(false)
     setIsOpen(false)
   }
 
@@ -24,7 +24,8 @@ export default function ModalNewStudent({params, setEditionMode}) {
     // console.log(newStudent)
     if(newStudent.name) {
       console.log("agregado", nombreCompleto)
-      saveNewStudentLocalStorage(newStudent, params.id)
+      handleNewStudent(newStudent, params.id)
+      // saveNewStudentLocalStorage(newStudent, params.id)
     }
     // setNewStudent({})
     console.log(newStudent)
@@ -32,16 +33,16 @@ export default function ModalNewStudent({params, setEditionMode}) {
     closeModal()
   }
 
-  const handleNewStudent = () => {
-    console.log(newStudent)
-    const nombreCompleto = `${newStudent.name} ${newStudent.apeido}`
-    setNewStudent({nombre: newStudent.name, apeido: newStudent.apeido})
-    if(newStudent.name) {
-      console.log("agregado", nombreCompleto)
+  // const handleNewStudent = () => {
+  //   console.log(newStudent)
+  //   const nombreCompleto = `${newStudent.name} ${newStudent.apeido}`
+  //   setNewStudent({nombre: newStudent.name, apeido: newStudent.apeido})
+  //   if(newStudent.name) {
+  //     console.log("agregado", nombreCompleto)
       // saveNewStudentLocalStorage({name: nombreCompleto}, params.id)
-    }
+    // }
     // setNewStudent({})
-  }
+  // }
 
   return (
     <>

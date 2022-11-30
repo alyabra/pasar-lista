@@ -17,8 +17,8 @@ function saveNewStudentLocalStorage(newAlumnoSave, idClase) {
     const nombreCompleto = `${newAlumnoSave.name} ${newAlumnoSave.apeido}`
     let id
     const clases = JSON.parse(localStorage.getItem("clases"))
-    const index = clases.findIndex(clase => clase.id == idClase)
-    const { alumnos } = clases[index]
+    const indexClass = clases.findIndex(clase => clase.id == idClase)
+    const { alumnos } = clases[indexClass]
     // console.log("alumnos",idClase, alumnos)
     if(alumnos.length>0) {
         id = alumnos[alumnos.length-1].id+1
@@ -28,10 +28,10 @@ function saveNewStudentLocalStorage(newAlumnoSave, idClase) {
       }
     // console.log(id)
 
-    const newAlumno= {name: nombreCompleto, id: id}
+    const newAlumno= {name: nombreCompleto, attendance: [], id: id}
     // const index = clases.findIndex(clase => clase.id == idClase)
     // console.log("index", index)
-    clases[index].alumnos.push(newAlumno)
+    clases[indexClass].alumnos.push(newAlumno)
     const dataInString = JSON.stringify(clases)
     localStorage.setItem("clases", dataInString)
 }
@@ -42,20 +42,23 @@ function deleteStudent(claseUpdate, idClase) {
 
     // console.log("claseEliminarStudet",claseUpdate)
     const clases = JSON.parse(localStorage.getItem("clases"))
-    const index = clases.findIndex(clase => clase.id == idClase)
+    const indexClass = clases.findIndex(clase => clase.id == idClase)
     // console.log("index", index, idClase )
     // console.log("eliminar", idClase-1,  clases[idClase-1].alumnos)
-    clases[index].alumnos=claseUpdate.alumnos
+    clases[indexClass].alumnos=claseUpdate.alumnos
     // console.log("despues eliminar", idClase-1,  clases[idClase-1].alumnos)
+    // console.log("claseEliminarStudet 2",clases[indexClass])
     const dataInString = JSON.stringify(clases)
     localStorage.setItem("clases", dataInString)
 }
 
 function deleteClase(idClase) {
-    const clases = JSON.parse(localStorage.getItem("clases"))
-    const clasesActualizadas = [clases[1]]
-    const dataInString = JSON.stringify(clasesActualizadas)
+    const classes = JSON.parse(localStorage.getItem("clases"))
+    const classesUpdates = classes.filter(aClass => aClass.id != idClase)
+
+    const dataInString = JSON.stringify(classesUpdates)
     localStorage.setItem("clases", dataInString)
+    // console.log("se va a eliminar la clase", idClase, classesUpdates, classes)
 }
 
 // Guadar la asistencia en local storage
@@ -77,7 +80,7 @@ function saveAttendanceLocalStorage(idClase, idStudent, dataAttendance) {
     // verifica si la fecha ya esta registrada
     const indexDay = attendance.findIndex(data => data.day === dataAttendance.day)
     if(indexDay != -1) {
-        console.log("esta duplicado")
+        // console.log("esta duplicado")
         clases[indexClass].alumnos[indexStudent].attendance[indexDay] = dataAttendance
     } else {
         clases[indexClass].alumnos[indexStudent].attendance.push(dataAttendance)
