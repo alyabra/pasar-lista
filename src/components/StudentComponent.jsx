@@ -1,11 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getDate } from '../helpers/databases'
 import { saveAttendanceLocalStorage } from '../helpers/useLocalStorage'
 
 const StudentComponent = ({alumno, editionMode, handleDeleteStudent, idClase}) => {
     // const [studentAttendance, setStdentAttendance] = useState({})
     const [statusAttendance, setStatusAttendance] = useState('')
-    
+    const day = getDate()
+    // console.log(alumno.attendance.some(item => item.day === day))
+
+    useEffect(() => {
+        // TODO: QUE REVISE POR DIA, INCLUSO EN DIAS PASADOS
+        const indexDay = alumno.attendance.findIndex(item => item.day === day)
+        if(indexDay != -1) {
+            setStatusAttendance(alumno.attendance[indexDay].status)
+        }
+    },[])
+
+
     const saveAttendance = (idStudent, status) => {
         if(statusAttendance === '') {
             const day = getDate()

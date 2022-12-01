@@ -85,7 +85,7 @@ function saveAttendanceLocalStorage(idClase, idStudent, dataAttendance) {
     } else {
         clases[indexClass].alumnos[indexStudent].attendance.push(dataAttendance)
     }
-
+    console.log(clases[indexClass].alumnos[indexStudent].attendance)
     // remplaza la informacion por la actualizada en local starage
     const dataInString = JSON.stringify(clases)
     localStorage.setItem("clases", dataInString)

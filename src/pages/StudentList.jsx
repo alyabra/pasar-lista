@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 import StudentComponent from "../components/StudentComponent"
-import { getAlumnos, getClases } from "../helpers/databases.js"
+// import { getAlumnos, getClases } from "../helpers/databases.js"
 import ClassInfo from "../components/ClassInfo"
 import ModalNewStudent from "../components/ModalNewStudent"
 import Header from "../components/Header"
