@@ -8,9 +8,7 @@ export default function ModalNewStudent({params, setEditionMode, handleNewStuden
   const [newStudent, setNewStudent] = useState({name: '', apeido: ''})
 
   function closeModal() {
-    // console.log("hola")
-    // handleNewStudent()
-    // setEditionMode(false)
+    setNewStudent({name: '', apeido: ''})
     setIsOpen(false)
   }
 
@@ -19,34 +17,47 @@ export default function ModalNewStudent({params, setEditionMode, handleNewStuden
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    const nombreCompleto = `${newStudent.name} ${newStudent.apeido}`
-    // setNewStudent({nombre: newStudent.name, apeido: newStudent.apeido})
-    // console.log(newStudent)
-    if(newStudent.name) {
-      console.log("agregado", nombreCompleto)
+    if(newStudent.name != '') {
       handleNewStudent(newStudent, params.id)
-      // saveNewStudentLocalStorage(newStudent, params.id)
     }
-    // setNewStudent({})
-    console.log(newStudent)
-    // handleNewStudent()
     closeModal()
   }
 
-  // const handleNewStudent = () => {
-  //   console.log(newStudent)
-  //   const nombreCompleto = `${newStudent.name} ${newStudent.apeido}`
-  //   setNewStudent({nombre: newStudent.name, apeido: newStudent.apeido})
-  //   if(newStudent.name) {
-  //     console.log("agregado", nombreCompleto)
-      // saveNewStudentLocalStorage({name: nombreCompleto}, params.id)
-    // }
-    // setNewStudent({})
-  // }
+  const handleReadFile = (e) => {
+    e.preventDefault()
+    // console.log(e.target[0].files[0])
+    const file = e.target[0].files[0]
+    if(!file) return
+    
+    const fileReader = new FileReader();
+
+    fileReader.readAsText( file )
+
+    fileReader.onload = () => {
+      console.log(fileReader.result)
+      const arrayStudents = fileReader.result.split('\n')
+      // console.log(arrayStudents)
+
+      for(let i=0; i < arrayStudents.length; i++) {
+        console.log(arrayStudents[i])
+        const studentTemp = arrayStudents[i].split(',')
+        if(studentTemp[0] != '') {
+          handleNewStudent({name: studentTemp[0], apeido: studentTemp[1]}, params.id)
+        }
+        
+      }
+
+    }
+    fileReader.onerror = () => {
+      console.log(fileReader.error)
+    }
+    closeModal()
+
+  }
 
   return (
     <>
-      <div className="inset-0 flex items-center justify-center">
+      <div className="inset-0 flex items-center justify-center shadow-2xl">
         <button
           type="button"
           onClick={openModal}
@@ -81,19 +92,31 @@ export default function ModalNewStudent({params, setEditionMode, handleNewStuden
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white px-6 pb-4 pt-1 text-left align-middle shadow-xl transition-all">
+                  <div className='flex justify-end'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8"
+                      onClick={closeModal}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-xl leading-6 text-gray-900 mb-4 font-bold"
                   >
-                    Agregar nuevo estudiante
+                    Agregar nuevo estudiante o varios desde un archivo
                   </Dialog.Title>
-                  <div className="mt-2">
+
+                  <div className="flex flex-col gap-4">
                     <form
-                      className='flex flex-col gap-2'
+                      className='flex flex-col items-center gap-1 p-2 bg-slate-200 rounded-md shadow-xl'
                       onSubmit={handleSubmit}
                     >
                       <div>
+                        <h2 className=" font-bold text-lg"
+                        >Agregar un estudiante</h2>
                         <label htmlFor="nombre"
                         >Nombre</label>
                         <input type="text" id="nombre" 
@@ -112,15 +135,32 @@ export default function ModalNewStudent({params, setEditionMode, handleNewStuden
                           onChange={e => setNewStudent({...newStudent, apeido: e.target.value})}
                         />
                       </div>
-                      <div className="mt-4">
+                      
                         <button
                           type="submit"
-                          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                          className="inline-flex justify-center rounded-md border border-transparent bg-blue-200 px-2 py-2 my-2 text-sm font-medium text-black hover:bg-blue-300 focus:outline-none focus-visible:ring-2  w-3/4 focus-visible:ring-blue-500 focus-visible:ring-offset-2
+                          shadow-md"
                         >
                           Agregar
                         </button>
-                      </div>
-                    </form>
+                      
+                      </form>
+
+                      <form
+                      className='flex flex-col items-center gap-1 p-2 bg-slate-200 rounded-md shadow-xl'
+                        onSubmit={handleReadFile}
+                      >
+                        <div className='rounded-md text-center flex flex-col gap-2 p-2 w-full'>
+                        <label className='font-bold text-lg'htmlFor="file">Agregar varias alumnos desde una lista txt</label>
+                        <input type="file" name='file' id='file' 
+                        placeholder='jj'
+                        multiple={false}
+                        // onChange={handleReadFile}
+                        accept=".txt"
+                        />
+                        </div>
+                        <button className='submit bg-blue-200 text-black hover:bg-blue-300 p-2 rounded-md w-3/4 shadow-md'>Agregar nuevos estudiantes</button>
+                      </form>
                   </div>
 
                 </Dialog.Panel>

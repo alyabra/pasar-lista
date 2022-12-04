@@ -17,6 +17,7 @@ const StudentComponent = ({alumno, editionMode, handleDeleteStudent, idClase}) =
     },[])
 
 
+
     const saveAttendance = (idStudent, status) => {
         if(statusAttendance === '') {
             const day = getDate()
@@ -24,6 +25,10 @@ const StudentComponent = ({alumno, editionMode, handleDeleteStudent, idClase}) =
 
             const dataToSave = {day, status}
             setStatusAttendance(status)
+
+            // const classeActualizada = {...clase}
+
+            // setClase()
             // console.log(studentAttendance)
             saveAttendanceLocalStorage(idClase, idStudent, dataToSave)
         } else {
@@ -38,7 +43,7 @@ const StudentComponent = ({alumno, editionMode, handleDeleteStudent, idClase}) =
 
   return (
     <div
-        className='my-2 p-2 px-5 text-xl  font-bold  w-full bg-slate-100 flex flex-col md:flex-row md:justify-between rounded-xl border-2 border-gray-400 shadow-xl items-center'
+        className='my-1 p-2 px-6 text-xl  font-bold  w-full bg-slate-100 flex flex-col md:flex-row md:justify-between rounded-xl border-2 border-gray-400 shadow-xl items-center'
     >
         {editionMode && 
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6"
@@ -54,18 +59,18 @@ const StudentComponent = ({alumno, editionMode, handleDeleteStudent, idClase}) =
         <div className='flex items-center gap-4 rounded justify-center w-40'>
             <button
                 type='button'
-                className={`${statusAttendance === 'present' ? 'bg-green-600 w-10 h-10' : 'bg-green-200 w-10 h-10'}  rounded-md shadow-m outline-offset-4 ${(statusAttendance === 'late' || statusAttendance === 'ausent') && 'hidden'}`}
+                className={`${statusAttendance === 'present' ? 'bg-green-600 w-12 h-10' : 'bg-green-200 w-12 h-10'}  rounded-md shadow-md outline-offset-4 ${(statusAttendance === 'late' || statusAttendance === 'ausent') && 'hidden'}`}
                 onClick={() => saveAttendance(alumno.id, "present")}
             ></button>
             <button
                 type='button'
-                className={`${statusAttendance === 'late' ? 'bg-yellow-300 w-10 h-10' : 'bg-yellow-100 w-10 h-10'}  rounded-md shadow-m outline-offset-4 ${(statusAttendance === 'present' || statusAttendance === 'ausent') && 'hidden'} `}
+                className={`${statusAttendance === 'late' ? 'bg-yellow-300 w-12 h-10' : 'bg-yellow-100 w-12 h-10'}  rounded-md shadow-md outline-offset-4 ${(statusAttendance === 'present' || statusAttendance === 'ausent') && 'hidden'} `}
                 onClick={() => saveAttendance(alumno.id, "late")}
             >
             </button>
             <button
                 type='button'
-                className={`${statusAttendance === 'ausent' ? 'bg-red-600 w-10 h-10' : 'bg-red-200 w-10 h-10'} rounded-md shadow-m outline-offset-4 ${(statusAttendance === 'late' || statusAttendance === 'present') && 'hidden mr-10'}`}
+                className={`${statusAttendance === 'ausent' ? 'bg-red-600 w-12 h-10' : 'bg-red-200 w-12 h-10'} rounded-md shadow-md outline-offset-4 ${(statusAttendance === 'late' || statusAttendance === 'present') && 'hidden'}`}
                 onClick={() => saveAttendance(alumno.id, "ausent")}
             >
             </button>

@@ -91,24 +91,41 @@ function saveAttendanceLocalStorage(idClase, idStudent, dataAttendance) {
     localStorage.setItem("clases", dataInString)
 }
 
-
+function saveAttendanceDay(idClase, day) {
+    const classes = JSON.parse(localStorage.getItem("clases"))
+    const indexClass = classes.findIndex(aClass => aClass.id == idClase)
+    // console.log(indexClass)
+    const dateRepeat = classes[indexClass].attendanceDays.findIndex(dayIn => dayIn === day)
+    if(dateRepeat != -1) {
+        console.log("fechaRepetida")
+    } else {
+        classes[indexClass].attendanceDays.push(day)
+    }
+    // console.log(classes[indexClass].attendanceDays) 
+    const dataInString = JSON.stringify(classes)
+    localStorage.setItem("clases", dataInString)
+}
 
 
 function creaFakeData() {
         const clases =[
-            {name: "Matemáticas I",  grup: "4B", semester: "2", year: "2022", school: "Edith Stein", id: 1, alumnos: [
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [],  id: 1},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [],  id: 2},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 3},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 4},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 5},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 6},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 7},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 8},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 9},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 10},
+            {name: "Matemáticas I",  grup: "4B", semester: "2", year: "2022", school: "Edith Stein", id: 1,
+            attendanceDays: ['2/12/2022', '3/12/2022', '4/12/2022', '5/12/2022', '6/12/2022'],
+            alumnos: [
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [{day: '2/12/2022', status: 'present'}, {day: '3/12/2022', status: 'present'}, {day: '4/12/2022', status: 'present'}, {day: '5/12/2022', status: 'present'}, {day: '6/12/2022', status: 'present'}],  id: 1},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [{day: '2/12/2022', status: 'present'}, {day: '3/12/2022', status: 'present'}, {day: '4/12/2022', status: 'present'}, {day: '5/12/2022', status: 'present'}, {day: '6/12/2022', status: 'present'}],  id: 2},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [{day: '2/12/2022', status: 'present'}, {day: '3/12/2022', status: 'present'}, {day: '4/12/2022', status: 'present'}, {day: '5/12/2022', status: 'present'}, {day: '6/12/2022', status: 'present'}], id: 3},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [{day: '2/12/2022', status: 'present'}, {day: '3/12/2022', status: 'present'}, {day: '4/12/2022', status: 'present'}, {day: '5/12/2022', status: 'present'}, {day: '6/12/2022', status: 'present'}], id: 4},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [{day: '2/12/2022', status: 'present'}, {day: '3/12/2022', status: 'present'}, {day: '4/12/2022', status: 'present'}, {day: '5/12/2022', status: 'present'}, {day: '6/12/2022', status: 'present'}], id: 5},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [{day: '2/12/2022', status: 'present'}, {day: '3/12/2022', status: 'present'}, {day: '4/12/2022', status: 'present'}, {day: '5/12/2022', status: 'present'}, {day: '6/12/2022', status: 'present'}], id: 6},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [{day: '2/12/2022', status: 'present'}, {day: '3/12/2022', status: 'present'}, {day: '4/12/2022', status: 'present'}, {day: '5/12/2022', status: 'present'}, {day: '6/12/2022', status: 'present'}], id: 7},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [{day: '2/12/2022', status: 'present'}, {day: '3/12/2022', status: 'present'}, {day: '4/12/2022', status: 'present'}, {day: '5/12/2022', status: 'present'}, {day: '6/12/2022', status: 'present'}], id: 8},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [{day: '2/12/2022', status: 'present'}, {day: '3/12/2022', status: 'present'}, {day: '4/12/2022', status: 'present'}, {day: '5/12/2022', status: 'present'}, {day: '6/12/2022', status: 'present'}], id: 9},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [{day: '2/12/2022', status: 'present'}, {day: '3/12/2022', status: 'present'}, {day: '4/12/2022', status: 'present'}, {day: '5/12/2022', status: 'present'}, {day: '6/12/2022', status: 'present'}], id: 10},
             ]}, 
-            {name: "Matemáticas I",  grup: "4A", semester: "2", year: "2022", school: "Edith Stein", id: 2, alumnos: [
+            {name: "Matemáticas I",  grup: "4A", semester: "2", year: "2022", school: "Edith Stein", id: 2, 
+            attendanceDays: ['2/12/2022', '3/12/2022', '4/12/2022', '5/12/2022', '6/12/2022'],
+            alumnos: [
                 {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 1},
                 {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 2},
                 {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 3},
@@ -120,43 +137,8 @@ function creaFakeData() {
                 {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 9},
                 {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 10},
             ]}, 
-            {name: "Matemáticas III",  grup: "4A", semester: "2", year: "2022", school: "Edith Stein",  id: 3, alumnos: [
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 1},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 2},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 3},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 4},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 5},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 6},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 7},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 8},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 9},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 10},
-            ]}, 
-            {name: "Matemáticas III",  grup: "4B", semester: "2", year: "2022", school: "Edith Stein", id: 4, alumnos: [
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 1},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 2},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 3},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 4},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 5},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 6},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 7},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 8},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 9},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 10},
-            ]}, 
-            {name: "Física I",  grup: "4A", semester: "2", year: "2022", school: "Edith Stein" , id: 5, alumnos: [
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 1},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 2},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 3},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 4},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 5},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 6},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 7},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 8},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 9},
-                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 10},
-            ]}, 
-            {name: "Física I",  grup: "4B", semester: "2", year: "2022", school: "Edith Stein",  id: 6, 
+            {name: "Matemáticas III",  grup: "4A", semester: "2", year: "2022", school: "Edith Stein",  id: 3, 
+            attendanceDays: [],
             alumnos: [
                 {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 1},
                 {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 2},
@@ -169,7 +151,51 @@ function creaFakeData() {
                 {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 9},
                 {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 10},
             ]}, 
-            {name: "Temas Selecto de Física I",  grup: "4B", semester: "2", year: "2022", school: "Edith Stein", id: 7, alumnos: [
+            {name: "Matemáticas III",  grup: "4B", semester: "2", year: "2022", school: "Edith Stein", id: 4, 
+            attendanceDays: [],
+            alumnos: [
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 1},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 2},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 3},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 4},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 5},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 6},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 7},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 8},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 9},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 10},
+            ]}, 
+            {name: "Física I",  grup: "4A", semester: "2", year: "2022", school: "Edith Stein" , id: 5, 
+            attendanceDays: [],
+            alumnos: [
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 1},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 2},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 3},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 4},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 5},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 6},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 7},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 8},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 9},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 10},
+            ]}, 
+            {name: "Física I",  grup: "4B", semester: "2", year: "2022", school: "Edith Stein",  id: 6, 
+            attendanceDays: [],
+            alumnos: [
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 1},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 2},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 3},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 4},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 5},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 6},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 7},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 8},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 9},
+                {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 10},
+            ]}, 
+            {name: "Temas Selecto de Física I",  grup: "4B", semester: "2", year: "2022", school: "Edith Stein", id: 7, 
+            attendanceDays: [],
+            alumnos: [
                 {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 1},
                 {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 2},
                 {name: "Alyabra Alejandro Vargas Chávez", attendance: [], id: 3},
@@ -185,4 +211,4 @@ function creaFakeData() {
         const dataInString = JSON.stringify(clases)
         localStorage.setItem("clases", dataInString)
 }
-export {getLocalStorage, saveLocalStorage, saveNewStudentLocalStorage, deleteStudent, deleteClase, saveAttendanceLocalStorage,  creaFakeData}
+export {getLocalStorage, saveLocalStorage, saveNewStudentLocalStorage, deleteStudent, deleteClase, saveAttendanceLocalStorage,  creaFakeData, saveAttendanceDay}

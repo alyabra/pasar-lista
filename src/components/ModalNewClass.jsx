@@ -7,21 +7,16 @@ export default function ModalNewClass({handleNewClass}) {
   const [escuela, setEscuela] = useState('')
   const [semestre, setSemestre] = useState('')
   const [salon, setSalon] = useState('')
-  const [year, setYear] = useState(2022)
-  const [alumnos, setAlumnos] = useState([])
+  const [year, setYear] = useState('')
 
 
   // {name: "Matemáticas I",  grup: "4B", semester: "2", year: "2022", school: "Edith Stein", id: 1}
   function closeModal() {
-    // console.log("hola")
-    // handleNewClass({
-    //   name: newClassName,
-    //   grup: salon,
-    //   semester: semestre,
-    //   year: year,
-    //   school: escuela,
-
-    // })
+    setNewClassName('')
+    setEscuela('')
+    setSemestre('')
+    setSalon('')
+    setYear('')
     setIsOpen(false)
   }
 
@@ -34,12 +29,11 @@ export default function ModalNewClass({handleNewClass}) {
       name: newClassName,
       grup: salon,
       semester: semestre,
-      year: year,
+      year: Number(year),
       school: escuela,
-      alumnos: alumnos,
+      alumnos: [],
+      attendanceDays: []
     })
-    // console.log("agregado",newStudentName,newStudentApeido )
-    // handleNewStudent({name: newStudentName, apeido: newStudentApeido })
     closeModal()
   }
 
@@ -80,14 +74,23 @@ export default function ModalNewClass({handleNewClass}) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white px-6 pt-1 pb-4 text-left align-middle shadow-xl transition-all">
+                  <div className='flex justify-end'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8"
+                      onClick={closeModal}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
                     Agregar nueva clase
                   </Dialog.Title>
-                  <div className="mt-2">
+                  <div className="m-2">
                     <form
                       className='flex flex-col gap-2'
                       onSubmit={handleSubmit}
@@ -112,6 +115,15 @@ export default function ModalNewClass({handleNewClass}) {
                         />
                       </div>
                       <div>
+                        <label htmlFor="year">Año</label>
+                        <input type="text" id="year" 
+                          placeholder='2022'
+                          className=' border border-black rounded-sm w-full px-2 py-1'
+                          value={year}
+                          onChange={e => setYear(e.target.value)}
+                        />
+                      </div>
+                      <div>
                         <label htmlFor="semestre">Semestre</label>
                         <input type="text" id="semestre" 
                           placeholder='2'
@@ -130,14 +142,12 @@ export default function ModalNewClass({handleNewClass}) {
                 
                         />
                       </div>
-                      <div className="mt-4">
                         <button
                           type="submit"
-                          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 shadow-md"
                         >
                           Agregar
                         </button>
-                      </div>
                     </form>
                   </div>
 
