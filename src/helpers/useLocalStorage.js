@@ -1,13 +1,32 @@
 function getLocalStorage() {
     const clases = JSON.parse(localStorage.getItem("clases"))
-    return clases
+    if(clases) {
+        return clases
+    } else {
+        return []
+    }
+
 }
 
 // guardar nueva clase en localSAtorage
 
 function saveLocalStorage(clase) {
-    const clases = JSON.parse(localStorage.getItem("clases"))
-    const clasesActualizadas = [...clases, clase] 
+    const newClass = {...clase}
+    let id
+
+    let clases
+    clases = JSON.parse(localStorage.getItem("clases"))
+
+    if(!clases) clases = [] 
+    if(clases.length>0) {
+        id = clases[clases.length-1].id+1
+      } else {
+        id = 1
+      }
+    newClass.id = id
+    newClass.alumnos = []
+    
+    const clasesActualizadas = [...clases, newClass] 
     const dataInString = JSON.stringify(clasesActualizadas)
     localStorage.setItem("clases", dataInString)
 }
@@ -85,7 +104,7 @@ function saveAttendanceLocalStorage(idClase, idStudent, dataAttendance) {
     } else {
         clases[indexClass].alumnos[indexStudent].attendance.push(dataAttendance)
     }
-    console.log(clases[indexClass].alumnos[indexStudent].attendance)
+    // console.log(clases[indexClass].alumnos[indexStudent].attendance)
     // remplaza la informacion por la actualizada en local starage
     const dataInString = JSON.stringify(clases)
     localStorage.setItem("clases", dataInString)

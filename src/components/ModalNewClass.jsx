@@ -9,7 +9,6 @@ export default function ModalNewClass({handleNewClass}) {
   const [salon, setSalon] = useState('')
   const [year, setYear] = useState('')
 
-
   // {name: "Matemáticas I",  grup: "4B", semester: "2", year: "2022", school: "Edith Stein", id: 1}
   function closeModal() {
     setNewClassName('')

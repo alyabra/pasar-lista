@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
 import ClassPreview from "../components/ClassPreview"
 import ModalNewClass from "../components/ModalNewClass"
 import { getLocalStorage, saveLocalStorage, deleteClase, creaFakeData } from "../helpers/useLocalStorage"
@@ -10,15 +9,9 @@ const Home = () => {
         // creaFakeData()
         setClases(getLocalStorage())
     },[])
-
     const handleNewClass = (newClass) => {
-        const classUpdate = [...clases]
-        const id = classUpdate[classUpdate.length-1].id + 1
-        newClass.id= id
-        newClass.alumnos = []
-        classUpdate.push(newClass)
-        setClases(classUpdate)
         saveLocalStorage(newClass)
+        setClases(getLocalStorage())
     }
     const handleDeleteClass = (idClase) => {
         deleteClase(idClase)
@@ -40,7 +33,8 @@ const Home = () => {
         className={`rounded-md w-32 h-20 ${!editionMode ? 'bg-cyan-300' : 'bg-gray-200'}   px-4 py-2 text-sm font-medium text-black hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 shadow-md`}
         onClick={() => setEditionMode(!editionMode)}
         >{!editionMode ? 'Editar lista de clases' : 'Cancelar'}</button>
-        { editionMode && <ModalNewClass handleNewClass={handleNewClass}/>
+        { editionMode && <ModalNewClass handleNewClass={handleNewClass}
+        />
 
         }
         </div>
