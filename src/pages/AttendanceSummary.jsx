@@ -21,19 +21,27 @@ const AttendanceSummary = () => {
     <>
         <Header />
         <div className={`flex flex-col gap-2 w-full`}>
-          <div className="flex">
-            <p className="w-1/4">Dias</p>
+          <div className="flex gap-x-1">
+          <p className="w-1/4">Mes</p>
+              {
+                clase.attendanceDays?.map(day => (
+                    <p className="bg-white w-5 text-center" key={day}>{day.split('/')[1]}</p>
+                ))
+              }
+          </div>
+          <div className="flex gap-x-1">
+            <p className="w-1/4">Dia</p>
             {
               clase.attendanceDays?.map(day => (
-                <p key={day}>{day}</p>
+                  <p className="bg-white w-5 text-center" key={day}>{day.split('/')[0]}</p>
               ))
             }
           </div>
-            {clase.alumnos?.map(student => (
+            {clase.alumnos?.map((student, index) => (
                 <div className="flex flex-row bg-slate-400 gap-x-1" key={student.id}>
-                    <p className="w-1/4">{student.name}</p>
+                    <p className="w-1/4">{`${index+1}.- ${student.name}`}</p>
                     {student.attendance.map(day => (
-                    <p className="bg-white w-4 text-center" key={day.day}>{day.status === 'present' ? 'p' : day.status==='ausent' ? 'a' : 'r'}</p> 
+                    <p className="bg-white w-5 text-center" key={day.day}>{day.status === 'present' ? 'p' : day.status==='ausent' ? 'a' : 'r'}</p> 
                     ))}
                 </div>
             ))}

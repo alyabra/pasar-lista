@@ -32,7 +32,7 @@ const Home = () => {
             <h2>Escuela</h2>
             <button>Agregar escuela</button>
         </header>
-        {clases.map(clase => (
+        {clases?.map(clase => (
                 <ClassPreview key={clase.id} claseInfo={clase} handleDeleteClass={handleDeleteClass} editionMode={editionMode}/>
         ))}
         <div className="flex justify-center gap-24">
