@@ -1,6 +1,6 @@
-import { Link, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
-import { getDate } from '../helpers/databases'
+import { getDate, sortArrayAbcName, sortArrayAbcApeido } from '../helpers/function'
 import ClassInfo from "../components/ClassInfo"
 import ModalNewStudent from "../components/ModalNewStudent"
 import Header from "../components/Header"
@@ -10,6 +10,9 @@ import ContainerList from "../components/ContainerList"
 
 function StudentList() {
   const [clase, setClase] = useState({})
+  
+  const [studensOrderly, setStudensOrderly] = useState([])
+  const [orderBy, setOrderBy] = useState('')
   const [error, setError] = useState(false)
   const [editionMode, setEditionMode] = useState(false)
 
@@ -19,38 +22,55 @@ function StudentList() {
     try {
       const classes = getLocalStorage()
       const indexClass = classes.findIndex(clases => clases.id == params.id)
-      setClase(getLocalStorage()[indexClass])
+      setClase(classes[indexClass])
+      setStudensOrderly(classes[indexClass].alumnos)
     } catch (error) {
       setError(true)
       console.log("si hubo un error")
     }
   }, [])
-  // name: "Temas Selecto de Física I",  grup: "4B", semester: "2", year: "2022", school: "Edith Stein", id: 7, alumnos
-  const  {alumnos, name, semester, year, grup } = clase
+
+  const  { alumnos, name, semester, year, grup } = clase
 
   const handleClickEdith = () => {
     setEditionMode(!editionMode)
   }
 
-  const handleDeleteStudent = id => {
-    const classUpdate = {...clase}
-    classUpdate.alumnos = clase.alumnos.filter(alumno => alumno.id != id)
-    setClase(classUpdate)
-    deleteStudent(classUpdate, params.id)
-  }
-  const handleNewStudent = (newStudent, idClass) => {
-
+  const updateClass = () => {
     const classes = getLocalStorage()
     const indexClass = classes.findIndex(clases => clases.id == params.id)
-    
-    saveNewStudentLocalStorage(newStudent, idClass)
     setClase(getLocalStorage()[indexClass])
-    
+    setStudensOrderly(classes[indexClass].alumnos)
+  }
+
+  const handleDeleteStudent = (id) => {
+    deleteStudent(id, params.id)
+    updateClass()
+  }
+
+  const handleNewStudent = (newStudent, idClass) => {
+    saveNewStudentLocalStorage(newStudent, idClass)
+    updateClass()
   }
   const saveRollCall = (idClass) => {
     const day = getDate()
     saveAttendanceDay(idClass, day)
-    console.log(day, idClass, clase)
+  }
+  const handleChangeOrder = (orderBy) => {
+    setOrderBy(orderBy)
+        let ordenados = clase.alumnos
+
+        switch (orderBy) {
+          case 'name':
+            ordenados = clase.alumnos.sort(sortArrayAbcName)
+            setStudensOrderly(ordenados)
+            break;
+          case 'lastName':
+            ordenados = clase.alumnos.sort(sortArrayAbcApeido)
+            setStudensOrderly(ordenados)
+          case '':
+            setStudensOrderly(ordenados)
+        }
   }
 
   
@@ -58,8 +78,19 @@ function StudentList() {
     !alumnos ? <h2>Error 404</h2> :
     <div className="flex flex-col p-2">
         <Header />
+        <select name="ordenar" id="ordenar" value={orderBy}
+          onChange={(e) => handleChangeOrder(e.target.value)}
+        >
+          <option value="">Elegir orden</option>
+          <option value="name">Por nombre</option>
+          <option value="lastName">Por apeido</option>
+        </select>
+        {/* <button
+        className="bg-red-400"
+        onClick={() => handleChangeOrder('name')}
+        >Cambiar orden</button> */}
         <ClassInfo datos={{name, semester, grup, year}} />
-        <ContainerList alumnos={alumnos} editionMode={editionMode} idClase={params.id} handleDeleteStudent={handleDeleteStudent}/>
+        <ContainerList alumnos={alumnos} studensOrderly={studensOrderly} orderBy={orderBy} editionMode={editionMode} idClase={params.id} handleDeleteStudent={handleDeleteStudent}/>
 
         <div className="relative flex justify-center items-center gap-4">
           <button 

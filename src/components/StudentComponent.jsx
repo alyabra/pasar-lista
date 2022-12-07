@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { getDate } from '../helpers/databases'
+import { getDate } from '../helpers/function'
 import { saveAttendanceLocalStorage } from '../helpers/useLocalStorage'
 
-const StudentComponent = ({alumno, editionMode, handleDeleteStudent, idClase}) => {
-    // const [studentAttendance, setStdentAttendance] = useState({})
+const StudentComponent = ({alumno, editionMode, handleDeleteStudent, idClase, orderBy}) => {
     const [statusAttendance, setStatusAttendance] = useState('')
     const day = getDate()
-    // console.log(alumno.attendance.some(item => item.day === day))
-
     useEffect(() => {
         // TODO: QUE REVISE POR DIA, INCLUSO EN DIAS PASADOS
         const indexDay = alumno.attendance.findIndex(item => item.day === day)
@@ -21,25 +18,16 @@ const StudentComponent = ({alumno, editionMode, handleDeleteStudent, idClase}) =
     const saveAttendance = (idStudent, status) => {
         if(statusAttendance === '') {
             const day = getDate()
-            // setStdentAttendance({day, status})
 
             const dataToSave = {day, status}
             setStatusAttendance(status)
 
-            // const classeActualizada = {...clase}
-
-            // setClase()
-            // console.log(studentAttendance)
             saveAttendanceLocalStorage(idClase, idStudent, dataToSave)
         } else {
             setStatusAttendance('')
         }
     }
 
-
-    // const handleDeleteStudent = id => {
-    //     console.log('elimindo '+id)
-    // }
 
   return (
     <div
@@ -54,7 +42,7 @@ const StudentComponent = ({alumno, editionMode, handleDeleteStudent, idClase}) =
         }
 
         <div className='flex items-center justify-center'>
-           <p className='block text-center'>{alumno.name}</p> 
+           <p className='block text-center'>{orderBy ==='lastName' ? alumno.lastName+' ' +alumno.firstName: alumno.firstName+alumno.lastName}</p> 
         </div>
         <div className='flex items-center gap-4 rounded justify-center w-40'>
             <button

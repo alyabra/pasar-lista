@@ -1,6 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { saveNewStudentLocalStorage } from '../helpers/useLocalStorage'
 
 
 export default function ModalNewStudent({params, setEditionMode, handleNewStudent}) {
@@ -25,21 +24,16 @@ export default function ModalNewStudent({params, setEditionMode, handleNewStuden
 
   const handleReadFile = (e) => {
     e.preventDefault()
-    // console.log(e.target[0].files[0])
     const file = e.target[0].files[0]
     if(!file) return
     
     const fileReader = new FileReader();
 
     fileReader.readAsText( file )
-
+    //TODO: Verificar que no guarda espacios vacios con un Trim
     fileReader.onload = () => {
-      console.log(fileReader.result)
       const arrayStudents = fileReader.result.split('\n')
-      // console.log(arrayStudents)
-
       for(let i=0; i < arrayStudents.length; i++) {
-        console.log(arrayStudents[i])
         const studentTemp = arrayStudents[i].split(',')
         if(studentTemp[0] != '') {
           handleNewStudent({name: studentTemp[0], apeido: studentTemp[1]}, params.id)
@@ -155,7 +149,6 @@ export default function ModalNewStudent({params, setEditionMode, handleNewStuden
                         <input type="file" name='file' id='file' 
                         placeholder='jj'
                         multiple={false}
-                        // onChange={handleReadFile}
                         accept=".txt"
                         />
                         </div>

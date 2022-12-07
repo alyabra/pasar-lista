@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import ClassPreview from "../components/ClassPreview"
 import ModalNewClass from "../components/ModalNewClass"
-import { getLocalStorage, saveLocalStorage, deleteClase, creaFakeData } from "../helpers/useLocalStorage"
+import { getLocalStorage, saveLocalStorage, deleteClase } from "../helpers/useLocalStorage"
 const Home = () => {
     const [clases, setClases] = useState([])
     const [editionMode, setEditionMode] = useState(false)

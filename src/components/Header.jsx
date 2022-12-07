@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { getDate } from '../helpers/databases'
+import { getDate } from '../helpers/function'
 
 const Header = () => {
   return (

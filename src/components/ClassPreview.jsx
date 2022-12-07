@@ -7,7 +7,6 @@ const ClassPreview = ({claseInfo, handleDeleteClass, editionMode}) => {
   <div className='my-1 p-4 px-4 text-xl  font-bold  w-full bg-slate-100 rounded-xl border-2 border-gray-400 shadow-xl flex flex-col md:flex-row justify-between'>
     <div
     className=' flex flex-col lg:flex-row  '
-    // onClick={() => handleClick(claseInfo.id)}
     >
         <div className='flex items-center justify-center'>
             {editionMode && <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 22" strokeWidth={2.2} stroke="currentColor" className="w-10 h-6 "

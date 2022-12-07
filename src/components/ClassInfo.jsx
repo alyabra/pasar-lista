@@ -2,7 +2,6 @@ import React from 'react'
 
 const ClassInfo = ({datos}) => {
   const {name, grup, semester, year} = datos
-  // console.log("datos",datos)
   return (
     <div
       className='flex flex-col items-center md:flex-row md:justify-between px-10 text-xl pb-5'
