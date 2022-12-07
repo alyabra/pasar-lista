@@ -42,7 +42,7 @@ const StudentComponent = ({alumno, editionMode, handleDeleteStudent, idClase, or
         }
 
         <div className='flex items-center justify-center'>
-           <p className='block text-center'>{orderBy ==='lastName' ? alumno.lastName+' ' +alumno.firstName: alumno.firstName+alumno.lastName}</p> 
+           <p className='block text-center'>{orderBy ==='lastName' ? alumno.lastName+' ' +alumno.firstName: alumno.firstName+' '+alumno.lastName}</p> 
         </div>
         <div className='flex items-center gap-4 rounded justify-center w-40'>
             <button

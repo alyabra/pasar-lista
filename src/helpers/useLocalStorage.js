@@ -47,7 +47,7 @@ function saveNewStudentLocalStorage(newAlumnoSave, idClase) {
       }
     // console.log(id)
 
-    const newAlumno= {firstName: newAlumnoSave.name, lastName:newAlumnoSave.apeido,  attendance: [], id: id}
+    const newAlumno= {firstName: newAlumnoSave.name.trim(), lastName:newAlumnoSave.apeido.trim(),  attendance: [], id: id}
     // const index = clases.findIndex(clase => clase.id == idClase)
     // console.log("index", index)
     clases[indexClass].alumnos.push(newAlumno)
