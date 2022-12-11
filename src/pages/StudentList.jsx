@@ -41,6 +41,7 @@ function StudentList() {
     const indexClass = classes.findIndex(clases => clases.id == params.id)
     setClase(getLocalStorage()[indexClass])
     setStudensOrderly(classes[indexClass].alumnos)
+    setOrderBy('')
   }
 
   const handleDeleteStudent = (id) => {
@@ -78,19 +79,9 @@ function StudentList() {
     !alumnos ? <h2>Error 404</h2> :
     <div className="flex flex-col p-2">
         <Header />
-        <select name="ordenar" id="ordenar" value={orderBy}
-          onChange={(e) => handleChangeOrder(e.target.value)}
-        >
-          <option value="">Elegir orden</option>
-          <option value="name">Por nombre</option>
-          <option value="lastName">Por apeido</option>
-        </select>
-        {/* <button
-        className="bg-red-400"
-        onClick={() => handleChangeOrder('name')}
-        >Cambiar orden</button> */}
-        <ClassInfo datos={{name, semester, grup, year}} />
-        <ContainerList alumnos={alumnos} studensOrderly={studensOrderly} orderBy={orderBy} editionMode={editionMode} idClase={params.id} handleDeleteStudent={handleDeleteStudent}/>
+        <ContainerList alumnos={alumnos} studensOrderly={studensOrderly} orderBy={orderBy} editionMode={editionMode} idClase={params.id} handleDeleteStudent={handleDeleteStudent} handleChangeOrder={handleChangeOrder}>
+          <ClassInfo datos={{name, semester, grup, year}} />
+        </ContainerList>
 
         <div className="relative flex justify-center items-center gap-4">
           <button 

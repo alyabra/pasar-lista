@@ -4,7 +4,7 @@ const ClassInfo = ({datos}) => {
   const {name, grup, semester, year} = datos
   return (
     <div
-      className='flex flex-col items-center md:flex-row md:justify-between px-10 text-xl pb-5'
+      className='flex flex-col items-center md:flex-row md:justify-between px-10 text-xl pb-5 w-full'
     >
       <h1 className=' font-bold'>Materia: <span className='text-2xl'>{name}</span></h1>
       <div

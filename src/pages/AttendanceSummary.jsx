@@ -36,13 +36,21 @@ const AttendanceSummary = () => {
                   <p className="bg-white w-5 text-center" key={day}>{day.split('/')[0]}</p>
               ))
             }
+            <p>T</p>
           </div>
             {clase.alumnos?.map((student, index) => (
                 <div className="flex flex-row bg-slate-400 gap-x-1" key={student.id}>
-                    <p className="w-1/4">{`${index+1}.- ${student.name}`}</p>
+                    <p className="w-1/4">{`${index+1}.- ${student.firstName} ${student.lastName}`}</p>
                     {student.attendance.map(day => (
                     <p className="bg-white w-5 text-center" key={day.day}>{day.status === 'present' ? 'p' : day.status==='ausent' ? 'a' : 'r'}</p> 
                     ))}
+                    <p>{student.attendance.reduce((total,current) => {
+                      let value = 0
+                      console.log(current.status)
+                      if(current.status === 'present') value = 1
+                      return total+value
+                    }, 0
+                    )}</p>
                 </div>
             ))}
         </div>
