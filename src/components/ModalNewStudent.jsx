@@ -101,6 +101,7 @@ export default function ModalNewStudent({params, setEditionMode, handleNewStuden
                     className="text-xl leading-6 text-gray-900 mb-4 font-bold"
                   >
                     Agregar nuevo estudiante o varios desde un archivo
+                    
                   </Dialog.Title>
 
                   <div className="flex flex-col gap-4">
@@ -146,6 +147,7 @@ export default function ModalNewStudent({params, setEditionMode, handleNewStuden
                       >
                         <div className='rounded-md text-center flex flex-col gap-2 p-2 w-full'>
                         <label className='font-bold text-lg'htmlFor="file">Agregar varias alumnos desde una lista txt</label>
+                        <p className='text-xs'>Cada alumno en un renglon, separando con una coma el nombre del apeido</p>
                         <input type="file" name='file' id='file' 
                         placeholder='jj'
                         multiple={false}
