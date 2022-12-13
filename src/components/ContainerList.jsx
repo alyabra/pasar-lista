@@ -3,7 +3,7 @@ import StudentComponent from "./StudentComponent"
 function ContainerList({ editionMode, handleDeleteStudent, idClase, studensOrderly, orderBy, handleChangeOrder, children}) {
   
   return (
-    <div className=" mx-auto w-full md:w-3/4 xl:w-1/2">
+    <div className=" w-full mx-auto max-w-4xl">
         {children}
         <ChangeOrden handleChangeOrder={handleChangeOrder} orderBy={orderBy} />
         {studensOrderly?.map((alumno) => (

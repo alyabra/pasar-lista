@@ -38,7 +38,7 @@ export default function ModalNewClass({handleNewClass}) {
 
   return (
     <>
-      <div className="inset-0 flex items-center justify-center">
+      <div className="inset-0 flex items-center justify-center shadow-xl">
         <button
           type="button"
           onClick={openModal}

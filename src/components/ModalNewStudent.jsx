@@ -55,7 +55,7 @@ export default function ModalNewStudent({params, setEditionMode, handleNewStuden
         <button
           type="button"
           onClick={openModal}
-          className="rounded-md w-32 h-20 bg-black  px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+          className="rounded-md w-32 h-20 bg-cyan-300  px-4 py-2 text-sm font-medium text-black hover:bg-cyan-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
         >
           Agregar estudiante nuevo
         </button>

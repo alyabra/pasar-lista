@@ -10,7 +10,6 @@ import ContainerList from "../components/ContainerList"
 
 function StudentList() {
   const [clase, setClase] = useState({})
-  
   const [studensOrderly, setStudensOrderly] = useState([])
   const [orderBy, setOrderBy] = useState('')
   const [error, setError] = useState(false)
@@ -59,33 +58,34 @@ function StudentList() {
   }
   const handleChangeOrder = (orderBy) => {
     setOrderBy(orderBy)
-        let ordenados = clase.alumnos
-
+    let ordenados
         switch (orderBy) {
           case 'name':
+            // studensOrderly
             ordenados = clase.alumnos.sort(sortArrayAbcName)
             setStudensOrderly(ordenados)
             break;
           case 'lastName':
             ordenados = clase.alumnos.sort(sortArrayAbcApeido)
             setStudensOrderly(ordenados)
+            break;
           case '':
-            setStudensOrderly(ordenados)
+            setStudensOrderly(clase.alumnos)
+            // console.log("dejo igual")
         }
   }
 
   
   return (
-    !alumnos ? <h2>Error 404</h2> :
-    <div className="flex flex-col p-2">
+    <div className="flex flex-col p-2 align-middle justify-center">
         <Header />
-        <ContainerList alumnos={alumnos} studensOrderly={studensOrderly} orderBy={orderBy} editionMode={editionMode} idClase={params.id} handleDeleteStudent={handleDeleteStudent} handleChangeOrder={handleChangeOrder}>
+        <ContainerList  studensOrderly={studensOrderly} orderBy={orderBy} editionMode={editionMode} idClase={params.id} handleDeleteStudent={handleDeleteStudent} handleChangeOrder={handleChangeOrder}>
           <ClassInfo datos={{name, semester, grup, year}} />
         </ContainerList>
 
         <div className="relative flex justify-center items-center gap-4">
           <button 
-          className={`${!editionMode ? 'bg-cyan-300' : 'bg-gray-600 text-white'} w-1/4 h-10 rounded-md shadow-md`}
+          className={`${!editionMode ? 'bg-cyan-300 hover:bg-cyan-400' : 'bg-gray-600 text-white hover:bg-gray-400'} w-1/4 py-2  rounded-md shadow-md font-bold`}
 
             onClick={handleClickEdith}
           >
@@ -93,7 +93,7 @@ function StudentList() {
           </button>
           
           {!editionMode && <button
-            className="bg-green-300 w-1/4 h-10 rounded-md shadow-md font-bold"
+            className="bg-green-300 w-1/4 py-2 rounded-md shadow-md font-bold hover:bg-green-400"
             onClick={() => saveRollCall(params.id)}
           >
                 Guardar cambios

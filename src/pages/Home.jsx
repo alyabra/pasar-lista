@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import ClassPreview from "../components/ClassPreview"
+import Header from "../components/Header"
 import ModalNewClass from "../components/ModalNewClass"
 import { getLocalStorage, saveLocalStorage, deleteClase, creaFakeData } from "../helpers/useLocalStorage"
 const Home = () => {
@@ -26,9 +27,9 @@ const Home = () => {
         {clases?.map(clase => (
                 <ClassPreview key={clase.id} claseInfo={clase} handleDeleteClass={handleDeleteClass} editionMode={editionMode}/>
         ))}
-        <div className="flex justify-center">
+        <div className="flex justify-center gap-2 pt-2">
         <button
-        className={`rounded-md w-32 h-20 mt-2 ${!editionMode ? 'bg-cyan-300' : 'bg-gray-200'}   px-4 py-2 text-sm font-medium text-black hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 shadow-md`}
+        className={`rounded-md w-32 h-20 ${!editionMode ? 'bg-cyan-300' : 'bg-gray-200'} px-4 py-2 text-sm font-medium text-black hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 shadow-md`}
         onClick={() => setEditionMode(!editionMode)}
         >{!editionMode ? 'Editar lista de clases' : 'Cancelar'}</button>
         { editionMode && <ModalNewClass handleNewClass={handleNewClass}
