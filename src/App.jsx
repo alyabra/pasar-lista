@@ -8,9 +8,9 @@ import StudentList from "./pages/StudentList"
 function App() {
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="pasar-lista">
       <Routes>
-        <Route path="/pasar-lista" element={<Home />}/>
+        <Route path="/" element={<Home />}/>
         <Route path='/pasa-lista' element={<StudentList />} />
         <Route path='/pasa-lista/:id' element={<StudentList />} />
         <Route path="/resumen-asistencia/:id" element={<AttendanceSummary />}/>
